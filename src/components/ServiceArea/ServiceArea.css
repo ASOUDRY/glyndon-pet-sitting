@@ -1,0 +1,22 @@
+.location-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.location-pill {
+  padding: 10px 18px;
+
+  background-color: #eef4f0;
+  border: 1px solid #d7e2db;
+  border-radius: 50px;
+
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #385543;
+}
+
+.service-area-note {
+  margin-top: 25px;
+  margin-bottom: 0;
+}

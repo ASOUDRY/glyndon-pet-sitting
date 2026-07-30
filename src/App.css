@@ -1,0 +1,106 @@
+#root {
+  width: 100%;
+}
+
+.container {
+  width: min(1120px, 90%);
+  margin: 0 auto;
+}
+
+.section {
+  padding: 90px 0;
+}
+
+.section-alt {
+  background-color: #f5f8f6;
+}
+
+.section-heading {
+  max-width: 700px;
+  margin-bottom: 45px;
+}
+
+.section-heading h2 {
+  margin-bottom: 0;
+}
+
+.eyebrow {
+  margin-bottom: 10px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #50725f;
+}
+
+h1 {
+  font-size: clamp(2.6rem, 6vw, 4.8rem);
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+}
+
+h2 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  color: #24332b;
+}
+
+h3 {
+  font-size: 1.3rem;
+  color: #24332b;
+}
+
+p {
+  line-height: 1.7;
+  color: #5c6862;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 48px;
+  padding: 0 24px;
+
+  border: 2px solid transparent;
+  border-radius: 8px;
+
+  font-weight: 600;
+
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.button:hover {
+  transform: translateY(-2px);
+}
+
+.button-primary {
+  background-color: #3f6652;
+  color: white;
+}
+
+.button-primary:hover {
+  background-color: #31503f;
+}
+
+.button-secondary {
+  border-color: #3f6652;
+  background-color: transparent;
+  color: #3f6652;
+}
+
+.button-secondary:hover {
+  background-color: #eef4f0;
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: 65px 0;
+  }
+}

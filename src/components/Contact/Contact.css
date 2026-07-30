@@ -1,0 +1,77 @@
+.contact-section {
+  background-color: #263d32;
+}
+
+.contact-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+}
+
+.contact-section h2 {
+  color: white;
+}
+
+.contact-section .eyebrow {
+  color: #a9c4b5;
+}
+
+.contact-section p {
+  color: #d3ded8;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+
+  padding: 32px;
+
+  background-color: white;
+  border-radius: 12px;
+}
+
+.contact-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #304239;
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 12px 14px;
+
+  border: 1px solid #ccd5d0;
+  border-radius: 6px;
+
+  background-color: white;
+  color: #24332b;
+
+  outline: none;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  border-color: #567b65;
+  box-shadow: 0 0 0 3px rgba(86, 123, 101, 0.12);
+}
+
+.contact-form textarea {
+  resize: vertical;
+}
+
+.contact-form button {
+  align-self: flex-start;
+}
+
+@media (max-width: 800px) {
+  .contact-content {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+}

@@ -1,0 +1,75 @@
+/* Services.css */
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+
+  margin-top: 40px;
+}
+
+.service-card {
+  display: flex;
+  flex-direction: column;
+
+  min-height: 260px;
+  padding: 28px;
+
+  background: #ffffff;
+  border: 1px solid #e2e2e2;
+  border-radius: 16px;
+
+  box-sizing: border-box;
+}
+
+.service-icon {
+  display: grid;
+  place-items: center;
+
+  width: 56px;
+  height: 56px;
+
+  margin-bottom: 18px;
+
+  border-radius: 50%;
+  background: #eef3eb;
+
+  font-size: 1.6rem;
+}
+
+.service-card h3 {
+  margin: 0 0 12px;
+}
+
+.service-card p {
+  margin: 0 0 20px;
+
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+.service-card a {
+  margin-top: auto;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+/* Tablet */
+@media (max-width: 900px) {
+  .services-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .services-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .service-card {
+    min-height: 230px;
+    padding: 24px;
+  }
+}

@@ -1,0 +1,48 @@
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+
+  background-color: rgba(255, 255, 255, 0.95);
+  border-bottom: 1px solid #e6ebe8;
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  min-height: 72px;
+}
+
+.logo {
+  font-size: 1.15rem;
+  font-weight: 750;
+  color: #294738;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.nav a {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #46534d;
+}
+
+.nav a:hover {
+  color: #3f6652;
+}
+
+@media (max-width: 700px) {
+  .header-content {
+    min-height: 64px;
+  }
+
+  .nav {
+    display: none;
+  }
+}

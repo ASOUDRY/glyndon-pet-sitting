@@ -1,0 +1,25 @@
+.site-footer {
+  padding: 30px 0;
+
+  background-color: #1c2d25;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.footer-content p {
+  margin: 0;
+
+  font-size: 0.9rem;
+  color: #aebdb5;
+}
+
+@media (max-width: 600px) {
+  .footer-content {
+    flex-direction: column;
+    gap: 5px;
+  }
+}
