@@ -1,5 +1,5 @@
 import "./About.css";
-import casey from "../../assets/carousel/Casey.webp";
+import Litofsky from "../../assets/pet_images/Litofsky.webp";
 
 const About = () => {
   return (
@@ -8,7 +8,7 @@ const About = () => {
         <div className="about-image-wrapper">
           <img
             className="about-image"
-            src={casey}
+            src={Litofsky}
             alt="Glyndon Pet Services with a dog"
           />
         </div>

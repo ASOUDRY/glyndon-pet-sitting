@@ -3,7 +3,7 @@ import "./Carousel.css";
 
 import chance from "../../assets/carousel/Chance.webp";
 import twinkle from "../../assets/carousel/Twinkle.webp"
-import litofsky from "../../assets/carousel/Litofsky.webp";
+import Stella from "../../assets/carousel/Stella.webp";
 import wilson from "../../assets/carousel/Wilson.webp";
 
 type CarouselImage = {
@@ -21,7 +21,7 @@ const images: CarouselImage[] = [
     alt: "Pet care with Twinkle",
   },
   {
-    src: litofsky,
+    src: Stella,
     alt: "Pet care with two dogs",
   },
   {
@@ -41,7 +41,7 @@ function Carousel() {
 
     if (!carousel) return;
 
-    const scrollSpeed = 0.5;
+    const scrollSpeed = 100;
 
     let animationFrameId: number;
 
