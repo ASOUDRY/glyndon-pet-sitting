@@ -1,14 +1,10 @@
-import { useState } from "react";
-import availabilityData from "../../types/availability.json";
+import { useEffect, useState } from "react";
 import type {
   AvailabilityDay,
   AvailabilityResponse,
-  ServiceType,
+  AvailabilityStatus,
 } from "../../types/Availability";
 import "./AvailabilityCalendar.css";
-
-const availability =
-  availabilityData as AvailabilityResponse;
 
 const weekDays = [
   "Sun",
@@ -20,21 +16,77 @@ const weekDays = [
   "Sat",
 ];
 
-const serviceLabels: Record<ServiceType, string> = {
-  DOG_WALKING: "Dog Walking",
-  DROP_IN_VISITS: "Drop-In Visits",
-  IN_HOME_PET_SITTING: "In-Home Pet Sitting",
-  PET_BOARDING: "Pet Boarding",
-  PET_TAXI: "Pet Taxi",
-};
-
 function AvailabilityCalendar() {
   const [selectedDay, setSelectedDay] =
     useState<AvailabilityDay | null>(null);
 
-  const [year, month] = availability.month
-    .split("-")
-    .map(Number);
+  const [availability, setAvailability] =
+    useState<AvailabilityResponse | null>(null);
+
+  const [loading, setLoading] = useState(true);
+
+  const [error, setError] =
+    useState<string | null>(null);
+
+  const [monthOffset, setMonthOffset] = useState(0);
+
+  const today = new Date();
+
+  const displayedDate = new Date(
+    today.getFullYear(),
+    today.getMonth() + monthOffset,
+    1
+  );
+
+  const year = displayedDate.getFullYear();
+
+  const month = displayedDate.getMonth() + 1;
+
+  const monthName = displayedDate.toLocaleString(
+    "en-US",
+    {
+      month: "long",
+      year: "numeric",
+    }
+  );
+
+  useEffect(() => {
+    async function fetchAvailability() {
+      try {
+        setLoading(true);
+        setError(null);
+        setSelectedDay(null);
+
+        const response = await fetch(
+          `http://localhost:8080/api/availability/getDates?year=${year}&month=${month}`
+        );
+
+        if (!response.ok) {
+          throw new Error(
+            `Backend returned ${response.status}`
+          );
+        }
+
+        const data: AvailabilityResponse =
+          await response.json();
+
+        setAvailability(data);
+      } catch (error) {
+        console.error(
+          "Failed to load availability:",
+          error
+        );
+
+        setError(
+          "Unable to load availability."
+        );
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchAvailability();
+  }, [year, month]);
 
   const firstDayOfMonth = new Date(
     year,
@@ -48,30 +100,48 @@ function AvailabilityCalendar() {
     0
   ).getDate();
 
-  const monthName = new Date(
-    year,
-    month - 1
-  ).toLocaleString("en-US", {
-    month: "long",
-    year: "numeric",
-  });
-
   const getAvailabilityForDay = (
     dayNumber: number
-  ) => {
+  ): AvailabilityDay | undefined => {
+    if (!availability) {
+      return undefined;
+    }
+
     const date = `${year}-${String(month).padStart(
       2,
       "0"
     )}-${String(dayNumber).padStart(2, "0")}`;
 
-    return availability.days.find(
-      (day) => day.date === date
-    );
+    return availability[date];
+  };
+
+  const getStatus = (
+    day: AvailabilityDay
+  ): AvailabilityStatus => {
+    if (
+      day.dropInsAvailable &&
+      day.houseSittingAvailable
+    ) {
+      return "AVAILABLE";
+    }
+
+    if (
+      day.dropInsAvailable ||
+      day.houseSittingAvailable
+    ) {
+      return "LIMITED";
+    }
+
+    return "UNAVAILABLE";
   };
 
   const calendarDays = [];
 
-  for (let i = 0; i < firstDayOfMonth; i++) {
+  for (
+    let i = 0;
+    i < firstDayOfMonth;
+    i++
+  ) {
     calendarDays.push(
       <div
         key={`empty-${i}`}
@@ -88,34 +158,39 @@ function AvailabilityCalendar() {
     const dayAvailability =
       getAvailabilityForDay(dayNumber);
 
-    const statusClass = dayAvailability
-      ? `calendar-day-${dayAvailability.status.toLowerCase()}`
+    const status = dayAvailability
+      ? getStatus(dayAvailability)
+      : null;
+
+    const statusClass = status
+      ? `calendar-day-${status.toLowerCase()}`
       : "calendar-day-unknown";
 
     calendarDays.push(
       <button
         key={dayNumber}
         className={`calendar-day ${statusClass}`}
-        onClick={() =>
-          dayAvailability &&
-          setSelectedDay(dayAvailability)
-        }
+        onClick={() => {
+          if (dayAvailability) {
+            setSelectedDay(dayAvailability);
+          }
+        }}
         disabled={!dayAvailability}
       >
         <span className="calendar-day-number">
           {dayNumber}
         </span>
 
-        {dayAvailability && (
+        {status && (
           <span className="calendar-status">
-            {dayAvailability.status === "AVAILABLE" &&
+            {status === "AVAILABLE" &&
               "Available"}
 
-            {dayAvailability.status === "LIMITED" &&
+            {status === "LIMITED" &&
               "Limited"}
 
-            {dayAvailability.status ===
-              "UNAVAILABLE" && "Unavailable"}
+            {status === "UNAVAILABLE" &&
+              "Unavailable"}
           </span>
         )}
       </button>
@@ -134,17 +209,52 @@ function AvailabilityCalendar() {
       </div>
 
       <div className="calendar-container">
-        <h3>{monthName}</h3>
 
-        <div className="calendar-weekdays">
-          {weekDays.map((day) => (
-            <div key={day}>{day}</div>
-          ))}
+        <div className="calendar-navigation">
+          <button
+            onClick={() =>
+              setMonthOffset(
+                (current) => current - 1
+              )
+            }
+            disabled={monthOffset === 0}
+          >
+            ← Previous
+          </button>
+
+          <h3>{monthName}</h3>
+
+          <button
+            onClick={() =>
+              setMonthOffset(
+                (current) => current + 1
+              )
+            }
+            disabled={monthOffset === 2}
+          >
+            Next →
+          </button>
         </div>
 
-        <div className="calendar-grid">
-          {calendarDays}
-        </div>
+        {loading ? (
+          <p>Loading availability...</p>
+        ) : error ? (
+          <p>{error}</p>
+        ) : (
+          <>
+            <div className="calendar-weekdays">
+              {weekDays.map((day) => (
+                <div key={day}>
+                  {day}
+                </div>
+              ))}
+            </div>
+
+            <div className="calendar-grid">
+              {calendarDays}
+            </div>
+          </>
+        )}
       </div>
 
       <div className="calendar-legend">
@@ -167,7 +277,9 @@ function AvailabilityCalendar() {
       {selectedDay && (
         <div
           className="availability-modal-overlay"
-          onClick={() => setSelectedDay(null)}
+          onClick={() =>
+            setSelectedDay(null)
+          }
         >
           <div
             className="availability-modal"
@@ -176,14 +288,18 @@ function AvailabilityCalendar() {
             }
           >
             <div className="availability-modal-header">
+
               <h3>
                 {new Date(
                   `${selectedDay.date}T12:00:00`
-                ).toLocaleDateString("en-US", {
-                  weekday: "long",
-                  month: "long",
-                  day: "numeric",
-                })}
+                ).toLocaleDateString(
+                  "en-US",
+                  {
+                    weekday: "long",
+                    month: "long",
+                    day: "numeric",
+                  }
+                )}
               </h3>
 
               <button
@@ -195,31 +311,57 @@ function AvailabilityCalendar() {
               >
                 ×
               </button>
+
             </div>
 
-            {selectedDay.services.length > 0 ? (
+            <p>Services available:</p>
+
+            <ul className="modal-service-list">
+
+              {selectedDay.dropInsAvailable && (
+                <li>
+                  ✓ Drop-In Visits
+                </li>
+              )}
+
+              {selectedDay.houseSittingAvailable && (
+                <li>
+                  ✓ In-Home Pet Sitting
+                </li>
+              )}
+
+              {!selectedDay.dropInsAvailable &&
+                !selectedDay.houseSittingAvailable && (
+                  <li>
+                    No services are available on this
+                    date.
+                  </li>
+                )}
+
+            </ul>
+
+            {selectedDay.bookedTimes.length >
+              0 && (
               <>
-                <p>Services available:</p>
+                <p>Unavailable times:</p>
 
                 <ul className="modal-service-list">
-                  {selectedDay.services.map(
-                    (service) => (
-                      <li key={service}>
-                        ✓ {serviceLabels[service]}
+                  {selectedDay.bookedTimes.map(
+                    (booking, index) => (
+                      <li key={index}>
+                        {booking.startTime} -{" "}
+                        {booking.endTime}
                       </li>
                     )
                   )}
                 </ul>
               </>
-            ) : (
-              <p>
-                No services are available on this
-                date.
-              </p>
             )}
+
           </div>
         </div>
       )}
+
     </section>
   );
 }

@@ -3,20 +3,24 @@ export type AvailabilityStatus =
   | "LIMITED"
   | "UNAVAILABLE";
 
-export type ServiceType =
-  | "DOG_WALKING"
-  | "DROP_IN_VISITS"
-  | "IN_HOME_PET_SITTING"
-  | "PET_BOARDING"
-  | "PET_TAXI";
+export type BookedServiceType =
+  | "DROP_IN"
+  | "PERSONAL";
+
+export type BookedTimeSlot = {
+  startTime: string;
+  endTime: string;
+  serviceType: BookedServiceType;
+};
 
 export type AvailabilityDay = {
   date: string;
-  status: AvailabilityStatus;
-  services: ServiceType[];
+  bookedTimes: BookedTimeSlot[];
+  dropInsAvailable: boolean;
+  houseSittingAvailable: boolean;
 };
 
-export type AvailabilityResponse = {
-  month: string;
-  days: AvailabilityDay[];
-};
+export type AvailabilityResponse = Record<
+  string,
+  AvailabilityDay
+>;
