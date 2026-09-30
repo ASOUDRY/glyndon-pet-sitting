@@ -29,6 +29,44 @@
   font-size: 1.5rem;
 }
 
+.calendar-navigation {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.calendar-navigation h3 {
+  margin: 0;
+  text-align: center;
+}
+
+.calendar-navigation button {
+  border: 1px solid #cccccc;
+  background-color: white;
+  border-radius: 8px;
+  padding: 0.5rem 0.9rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.calendar-navigation button:first-child {
+  justify-self: start;
+}
+
+.calendar-navigation button:last-child {
+  justify-self: end;
+}
+
+.calendar-navigation button:hover:not(:disabled) {
+  background-color: #f2f2f2;
+}
+
+.calendar-navigation button:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
 .calendar-weekdays {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
@@ -45,9 +83,12 @@
 
 .calendar-day {
   min-height: 100px;
+
   border: none;
   border-radius: 8px;
+
   padding: 0.75rem;
+
   cursor: pointer;
 
   display: flex;
@@ -106,7 +147,9 @@
 
   display: flex;
   justify-content: center;
+
   gap: 2rem;
+
   flex-wrap: wrap;
 }
 
@@ -134,9 +177,7 @@
   background-color: #dc9696;
 }
 
-.availability-details-header h3 {
-  margin: 0;
-}
+/* MODAL OVERLAY */
 
 .availability-modal-overlay {
   position: fixed;
@@ -153,7 +194,11 @@
   z-index: 1000;
 }
 
+/* MODAL */
+
 .availability-modal {
+  position: relative;
+
   width: 100%;
   max-width: 500px;
 
@@ -162,14 +207,18 @@
   background-color: white;
 
   border-radius: 14px;
+
+  box-sizing: border-box;
+
+  z-index: 1001;
 }
 
-.availability-modal-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+/* HEADER */
 
-  gap: 1rem;
+.availability-modal-header {
+  display: block;
+
+  padding-right: 55px;
 
   margin-bottom: 1rem;
 }
@@ -178,26 +227,65 @@
   margin: 0;
 }
 
-.modal-close-button {
-  border: none;
-  background: none;
+/* CLOSE BUTTON */
 
-  font-size: 1.75rem;
+.modal-close-button {
+  position: absolute;
+
+  top: 12px;
+  right: 12px;
+
+  width: 44px;
+  height: 44px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+
+  border: none;
+  border-radius: 50%;
+
+  background-color: #eeeeee;
+
+  font-size: 28px;
   line-height: 1;
 
   cursor: pointer;
+
+  pointer-events: auto !important;
+
+  z-index: 999999;
+
+  appearance: none;
+  -webkit-appearance: none;
 }
+
+.modal-close-button:hover {
+  background-color: #dddddd;
+}
+
+.modal-close-button:focus-visible {
+  outline: 2px solid #333333;
+  outline-offset: 2px;
+}
+
+/* MODAL CONTENT */
 
 .modal-service-list {
   list-style: none;
 
   padding: 0;
+
   margin: 1rem 0 0;
 }
 
 .modal-service-list li {
   margin-bottom: 0.6rem;
 }
+
+/* MOBILE */
 
 @media (max-width: 700px) {
   .availability-section {
@@ -225,43 +313,13 @@
     gap: 1rem;
     font-size: 0.85rem;
   }
-}
 
+  .availability-modal {
+    padding: 1.25rem;
+  }
 
-.calendar-navigation {
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  align-items: center;
-  margin-bottom: 1.5rem;
-}
-
-.calendar-navigation h3 {
-  margin: 0;
-  text-align: center;
-}
-
-.calendar-navigation button {
-  border: 1px solid #cccccc;
-  background-color: white;
-  border-radius: 8px;
-  padding: 0.5rem 0.9rem;
-  cursor: pointer;
-  font-size: 0.9rem;
-}
-
-.calendar-navigation button:first-child {
-  justify-self: start;
-}
-
-.calendar-navigation button:last-child {
-  justify-self: end;
-}
-
-.calendar-navigation button:hover:not(:disabled) {
-  background-color: #f2f2f2;
-}
-
-.calendar-navigation button:disabled {
-  opacity: 0.4;
-  cursor: default;
+  .modal-close-button {
+    top: 10px;
+    right: 10px;
+  }
 }

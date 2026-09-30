@@ -1,0 +1,41 @@
+.dog-cursor {
+  display: none;
+}
+
+@media (pointer: fine) and (hover: hover) and (prefers-reduced-motion: no-preference) {
+  html.dog-cursor-active,
+  html.dog-cursor-active * {
+    cursor: none !important;
+  }
+
+  .dog-cursor {
+    display: block;
+
+    position: fixed;
+    left: 0;
+    top: 0;
+
+    width: 56px;
+    height: 56px;
+
+    object-fit: contain;
+
+    /*
+      Keep the visible dog aligned with the
+      browser's actual mouse position.
+    */
+    transform: translate(-50%, -50%);
+
+    opacity: 0;
+
+    /*
+      Critical: the dog must never intercept
+      clicks, hover, or pointer events.
+    */
+    pointer-events: none;
+
+    user-select: none;
+
+    z-index: 99999;
+  }
+}

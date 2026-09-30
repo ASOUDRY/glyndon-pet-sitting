@@ -39,7 +39,6 @@ function AvailabilityCalendar() {
   );
 
   const year = displayedDate.getFullYear();
-
   const month = displayedDate.getMonth() + 1;
 
   const monthName = displayedDate.toLocaleString(
@@ -58,7 +57,7 @@ function AvailabilityCalendar() {
         setSelectedDay(null);
 
         const response = await fetch(
-          `http://localhost:8080/api/availability/getDates?year=${year}&month=${month}`
+          `https://glyndon-pet-services-509591974394.us-east1.run.app/api/availability/getDates?year=${year}&month=${month}`
         );
 
         if (!response.ok) {
@@ -77,9 +76,7 @@ function AvailabilityCalendar() {
           error
         );
 
-        setError(
-          "Unable to load availability."
-        );
+        setError("Unable to load availability.");
       } finally {
         setLoading(false);
       }
@@ -137,11 +134,7 @@ function AvailabilityCalendar() {
 
   const calendarDays = [];
 
-  for (
-    let i = 0;
-    i < firstDayOfMonth;
-    i++
-  ) {
+  for (let i = 0; i < firstDayOfMonth; i++) {
     calendarDays.push(
       <div
         key={`empty-${i}`}
@@ -169,6 +162,7 @@ function AvailabilityCalendar() {
     calendarDays.push(
       <button
         key={dayNumber}
+        type="button"
         className={`calendar-day ${statusClass}`}
         onClick={() => {
           if (dayAvailability) {
@@ -198,7 +192,10 @@ function AvailabilityCalendar() {
   }
 
   return (
-    <section className="availability-section">
+    <section
+      id="availability-section"
+      className="availability-section"
+    >
       <div className="availability-header">
         <h2>Availability</h2>
 
@@ -209,9 +206,9 @@ function AvailabilityCalendar() {
       </div>
 
       <div className="calendar-container">
-
         <div className="calendar-navigation">
           <button
+            type="button"
             onClick={() =>
               setMonthOffset(
                 (current) => current - 1
@@ -225,6 +222,7 @@ function AvailabilityCalendar() {
           <h3>{monthName}</h3>
 
           <button
+            type="button"
             onClick={() =>
               setMonthOffset(
                 (current) => current + 1
@@ -287,37 +285,33 @@ function AvailabilityCalendar() {
               event.stopPropagation()
             }
           >
-            <div className="availability-modal-header">
+          <div className="availability-modal-header">
+  <h3>
+    {new Date(
+      `${selectedDay.date}T12:00:00`
+    ).toLocaleDateString("en-US", {
+      weekday: "long",
+      month: "long",
+      day: "numeric",
+    })}
+  </h3>
+</div>
 
-              <h3>
-                {new Date(
-                  `${selectedDay.date}T12:00:00`
-                ).toLocaleDateString(
-                  "en-US",
-                  {
-                    weekday: "long",
-                    month: "long",
-                    day: "numeric",
-                  }
-                )}
-              </h3>
-
-              <button
-                className="modal-close-button"
-                onClick={() =>
-                  setSelectedDay(null)
-                }
-                aria-label="Close availability details"
-              >
-                ×
-              </button>
-
-            </div>
-
+<button
+  type="button"
+  className="modal-close-button"
+  onClick={(event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    setSelectedDay(null);
+  }}
+  aria-label="Close availability details"
+>
+  ×
+</button>
             <p>Services available:</p>
 
             <ul className="modal-service-list">
-
               {selectedDay.dropInsAvailable && (
                 <li>
                   ✓ Drop-In Visits
@@ -337,7 +331,6 @@ function AvailabilityCalendar() {
                     date.
                   </li>
                 )}
-
             </ul>
 
             {selectedDay.bookedTimes.length >
@@ -357,11 +350,9 @@ function AvailabilityCalendar() {
                 </ul>
               </>
             )}
-
           </div>
         </div>
       )}
-
     </section>
   );
 }
