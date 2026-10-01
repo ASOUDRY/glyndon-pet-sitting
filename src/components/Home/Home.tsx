@@ -48,7 +48,7 @@ const Home = () => {
     let animationFrameId: number;
     let previousTime = 0;
 
-    const pixelsPerSecond = 50;
+    const pixelsPerSecond = 70;
 
     const animate = (currentTime: number) => {
       if (previousTime === 0) {
