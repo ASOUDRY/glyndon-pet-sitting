@@ -1,9 +1,6 @@
 import { useEffect, useRef } from "react";
 import "./Home.css";
-
 import chance from "../../assets/carousel/Chance.webp";
-import twinkle from "../../assets/carousel/Twinkle.webp";
-// import Stella from "../../assets/carousel/Stella.webp";
 import wilson from "../../assets/carousel/Wilson.webp";
 import Casey from "../../assets/carousel/Casey.webp"
 
@@ -18,17 +15,9 @@ const images: CarouselImage[] = [
     alt: "Pet care with Chance",
   },
   {
-    src: twinkle,
-    alt: "Pet care with Twinkle",
-  },
-  {
     src: Casey,
     alt: "Pet care with Casey",
   },
-  // {
-  //   src: Stella,
-  //   alt: "Pet care with Stella",
-  // },
   {
     src: wilson,
     alt: "Pet care with Wilson",
