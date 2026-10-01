@@ -3,22 +3,22 @@ const services = [
   {
     title: "Dog Walking",
     description:
-      "Dependable walks tailored to your dog's pace, routine, and energy level.",
+      "Dependable walks tailored to your dog's pace, routine, and individual energy level.",
   },
   {
     title: "Drop-In Visits",
     description:
-      "In-home visits for feeding, playtime, bathroom breaks, and companionship.",
+      "In-home visits for feeding, playtime, bathroom breaks, and friendly companionship.",
   },
   {
     title: "Pet Boarding",
     description:
-      "I will host your pets treating them like they are my own.",
+      "I will host your pets in my home, treating them like they are my own with care and attention.",
   },
   {
     title: "Overnight Pet Sitting",
     description:
-      "Overnight care that helps your pets stay comfortable in their normal routine.",
+      "Overnight care that helps your pets stay comfortable and follow their normal daily routine.",
   },
   {
     title: "Pet Transportation",
@@ -28,7 +28,7 @@ const services = [
   {
     title: "Other Animal Care",
     description:
-      "Cats, fish rabbits, chicken, and any other animal, I’m happy to provide attentive, personalized care tailored to their unique needs and routines.",
+      "Cats, fish, rabbits, chickens, and other animals receive attentive, personalized care.",
   },
 ];
 
