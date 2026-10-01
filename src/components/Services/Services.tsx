@@ -28,7 +28,7 @@ const services = [
   {
     title: "Other Animal Care",
     description:
-      "Safe transportation to veterinary appointments, grooming visits, and other local destinations.",
+      "Cats, fish rabbits, chicken, and any other animal, I’m happy to provide attentive, personalized care tailored to their unique needs and routines.",
   },
 ];
 

@@ -109,6 +109,10 @@ const Contact = () => {
             Tell me a little about your pets, the care
             you need, and the dates you have in mind.
           </p>
+
+            <p>
+            Text me at 443-615-3229 or fill out the form on the right if you'd like to learn more or make a appointment.
+            </p>
         </div>
 
         <form

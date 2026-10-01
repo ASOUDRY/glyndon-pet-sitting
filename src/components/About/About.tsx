@@ -19,12 +19,12 @@ const About = () => {
           <h2>Personal care from someone who genuinely enjoys animals.</h2>
 
           <p>
-            I’ve been caring for pets for nearly 20 years and understand that
+            Hi my name is Alexander Soudry and I’ve been caring for pets for nearly 20 years and understand that
             every animal has its own personality, routine, and comfort level.
           </p>
 
           <p>
-            I follow your instructions closely and give your pets the kind of
+            I will follow your instructions closely and give your pets the kind of
             attention they’re used to, whether that means long walks, playtime,
             quiet companionship, or simply keeping their normal schedule intact.
           </p>
