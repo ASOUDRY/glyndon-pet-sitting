@@ -111,7 +111,7 @@ const Contact = () => {
           </p>
 
             <p>
-            Text me at 443-615-3229 or fill out the form on the right if you'd like to learn more or make a appointment.
+            Text me at 443-615-3229 or fill out the form to get in touch.
             </p>
         </div>
 
